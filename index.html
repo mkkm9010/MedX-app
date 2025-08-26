@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedX Interface</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the app */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0e0e0; /* A light grey background to highlight the app */
+        }
+        /* Style for the header background image */
+        .header-background {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Simple transition for screen visibility */
+        .screen {
+            display: none; /* Initially hide all screens */
+        }
+        .screen.active {
+            display: block; /* Show the active screen */
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+
+    <!-- Main container simulating a phone screen -->
+    <div class="w-full max-w-sm mx-auto bg-white text-white rounded-3xl shadow-2xl overflow-hidden">
+        
+        <!-- Header section with background image -->
+        <div class="header-background">
+            <!-- App Header -->
+            <header class="p-4 flex justify-between items-center">
+                <!-- Menu Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+                <!-- App Title -->
+                <h1 class="text-2xl font-bold">MedX</h1>
+                <!-- Profile Icon -->
+                <div class="text-center">
+                    <div class="w-8 h-8 rounded-full bg-white/50 ring-2 ring-white mx-auto"></div>
+                    <span class="text-xs font-medium">My Profile</span>
+                </div>
+            </header>
+
+            <!-- Welcome Section -->
+            <div class="px-6 pb-4 pt-2">
+                <h2 class="text-2xl font-semibold">Welcome Doctor</h2>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="bg-gray-100 text-gray-800 rounded-t-none p-4 -mt-2 rounded-t-3xl relative z-10">
+            
+            <!-- ====== Subjects Screen ====== -->
+            <div id="subjects-screen" class="screen active">
+                <!-- Top Card: Stats and Actions -->
+                <div class="bg-white rounded-2xl shadow-md p-4 mb-6">
+                    <div class="flex justify-between items-center space-x-4">
+                        <!-- Linear Progress and Sync Button -->
+                        <div class="flex-grow">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-semibold text-green-600">1 Read</span>
+                                <span class="text-sm font-semibold text-gray-500">3162 Unread</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-green-500 h-2.5 rounded-full" style="width: 1%"></div>
+                            </div>
+                            <button class="mt-3 w-full bg-blue-500 text-white text-sm font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors">
+                                Sync History
+                            </button>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col space-y-2">
+                            <button class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors text-sm">Top 10</button>
+                            <button class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors text-sm">Contact</button>
+                            <button class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors text-sm">Update</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subjects List -->
+                <div id="subjects-list" class="space-y-4">
+                    <!-- Subjects will be dynamically added here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- ====== Chapters Screen ====== -->
+            <div id="chapters-screen" class="screen">
+                <div class="flex items-center mb-4">
+                    <button id="back-to-subjects" class="mr-4 p-2 rounded-full hover:bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <h3 id="chapters-title" class="text-xl font-bold">Chapters</h3>
+                </div>
+                <div id="chapters-list" class="space-y-3">
+                    <!-- Chapters will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- ====== Questions Screen ====== -->
+            <div id="questions-screen" class="screen">
+                <div class="flex items-center justify-between mb-4">
+                     <button id="back-to-chapters" class="p-2 rounded-full hover:bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <h3 id="questions-title" class="text-xl font-bold">Questions</h3>
+                    <button id="sort-questions" class="bg-blue-500 text-white text-xs font-semibold py-1 px-3 rounded-lg shadow-md">Sort by Reps</button>
+                </div>
+                <div id="questions-list" class="space-y-3">
+                    <!-- Questions will be dynamically added here -->
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+<script>
+    // ===================================================================================
+    //  APP DATABASE
+    // ===================================================================================
+    const qBank = [
+        // Upper Limb
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Essay', question: 'Axilla and Axillary Artery', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Essay', question: 'Median Nerve', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Essay', question: 'Radial Nerve (Saturday Night Palsy)', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Essay', question: 'Ulnar Nerve', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Rotator Cuff Muscles', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Erb\'s Point / Erb\'s Palsy', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Flexor Retinaculum and Carpal Tunnel Syndrome', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Cubital Fossa / Cubital Anastomosis', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Axillary Lymph Nodes', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Axillary Nerve', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Cephalic Vein', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Clavipectoral Fascia', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Cutaneous Innervation of Palm', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Elbow Joint', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Fascial Spaces of Hand', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Intrinsic Muscles of Hand', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Profunda Brachii Artery', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Quadrangular Space', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Radio-ulnar Joints', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Supination and Pronation', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Ulnar Nerve in Hand', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Upper Limb', type: 'Short Note', question: 'Wrist Drop (Anatomical Basis)', reps: 1 },
+        // Lower Limb
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Essay', question: 'Hip Joint', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Essay', question: 'Sciatic Nerve / Lumbar Plexus', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Essay', question: 'Knee Joint', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Great Saphenous Vein / Varicose Veins', reps: 3 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Femoral Triangle', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Gluteus Maximus', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Gluteus Medius and Trendelenburg\'s Sign', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Ligaments of Knee Joint (including intracapsular)', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Adductor Canal', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Adductor Magnus', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Anastomosis around Knee Joint', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Arches of Foot', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Common Peroneal Nerve', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Cutaneous Innervation of Dorsum of Foot', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Hamstring Muscles', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Lateral Compartment of Leg', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Lymphatic Drainage of Lower Limb', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Obturator Nerve', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Popliteal Artery', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Quadriceps Femoris', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Second Layer of Sole', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Tendocalcaneus', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Lower Limb', type: 'Short Note', question: 'Tibialis Anterior', reps: 1 },
+        // Abdomen
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Essay', question: 'Portal Vein and Portosystemic Anastomosis', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Essay', question: 'Duodenum', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Essay', question: 'Kidney', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Essay', question: 'Pancreas', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Essay', question: 'Stomach', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Extrahepatic Biliary Apparatus / Common Bile Duct', reps: 3 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Rectus Sheath', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Vermiform Appendix', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Bare Area of Liver', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Coeliac Trunk', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Coverings of the Kidney', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Development of Kidney', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Development of Pancreas', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Femoral Hernia', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Inguinal Canal', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Lymphatic Drainage and Nerve Supply of Stomach', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Major Openings of Diaphragm', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Microanatomy of Pancreas', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Right Supra-renal Gland', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Root of Mesentery', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Spleen', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Abdomen', type: 'Short Note', question: 'Superior Mesenteric Artery', reps: 1 },
+        // Thorax
+        { subject: 'Anatomy', chapter: 'Thorax', type: 'Essay', question: 'Mammary Gland', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Thorax', type: 'Short Note', question: 'Lymphatic Drainage and Blood Supply of Mammary Gland', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Thorax', type: 'Short Note', question: 'Microstructure of Oesophagus', reps: 1 },
+        // Pelvis & Perineum
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Essay', question: 'Uterus', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Essay', question: 'Urinary Bladder', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Essay', question: 'Prostate (inferred from clinical case)', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Descent of Testis', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Ischioanal / Ischiorectal Fossa', reps: 2 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Interior of Anal Canal', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Internal Iliac Artery', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Internal Pudendal Artery', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Pelvic Diaphragm', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Spermatic Cord', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Pelvis & Perineum', type: 'Short Note', question: 'Trigone of Bladder', reps: 1 },
+        // Histology
+        { subject: 'Anatomy', chapter: 'Histology', type: 'Short Note', question: 'Histology of Appendix', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Histology', type: 'Short Note', question: 'Histology of Elastic Cartilage', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Histology', type: 'Short Note', question: 'Histology of Liver', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Histology', type: 'Short Note', question: 'Histology of Testis', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Histology', type: 'Short Note', question: 'Micro Anatomy of Skeletal Muscle', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Histology', type: 'Short Note', question: 'Microscopic Anatomy of Compact Bone', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Histology', type: 'Short Note', question: 'Microscopic Anatomy of Lymph Node', reps: 1 },
+        // Embryology
+        { subject: 'Anatomy', chapter: 'Embryology', type: 'Short Note', question: 'Amnion and Amniocentesis', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Embryology', type: 'Short Note', question: 'Midgut Rotation with Anomalies', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Embryology', type: 'Short Note', question: 'Neurulation', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Embryology', type: 'Short Note', question: 'Oogenesis', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Embryology', type: 'Short Note', question: 'Structure of Sperm', reps: 1 },
+        { subject: 'Anatomy', chapter: 'Embryology', type: 'Short Note', question: 'Twinning', reps: 1 },
+        // General & Miscellaneous
+        { subject: 'Anatomy', chapter: 'General & Miscellaneous', type: 'Short Note', question: 'Cadaver Ethics / Cadaver as First Teacher', reps: 4 },
+        { subject: 'Anatomy', chapter: 'General & Miscellaneous', type: 'Short Note', question: 'Cartilaginous Joints', reps: 1 },
+        { subject: 'Anatomy', chapter: 'General & Miscellaneous', type: 'Short Note', question: 'Peripheral Heart', reps: 1 },
+        // Placeholder data for other subjects
+        { subject: 'Physiology', chapter: 'Cardiovascular', type: 'Essay', question: 'Describe the cardiac cycle.', reps: 5 },
+        { subject: 'Physiology', chapter: 'Cardiovascular', type: 'Short Note', question: 'What is ECG?', reps: 4 },
+        { subject: 'Physiology', chapter: 'Renal', type: 'Essay', question: 'Explain the process of micturition.', reps: 3 },
+        { subject: 'Biochemistry', chapter: 'Metabolism', type: 'Essay', question: 'Glycolysis pathway.', reps: 6 },
+        { subject: 'Biochemistry', chapter: 'Metabolism', type: 'Short Note', question: 'Kreb\'s Cycle energetics.', reps: 5 },
+    ];
+
+    // ===================================================================================
+    //  DOM ELEMENTS
+    // ===================================================================================
+    const screens = {
+        subjects: document.getElementById('subjects-screen'),
+        chapters: document.getElementById('chapters-screen'),
+        questions: document.getElementById('questions-screen'),
+    };
+    const subjectsListContainer = document.getElementById('subjects-list');
+    const chaptersListContainer = document.getElementById('chapters-list');
+    const questionsListContainer = document.getElementById('questions-list');
+    const chaptersTitle = document.getElementById('chapters-title');
+    const questionsTitle = document.getElementById('questions-title');
+    const backToSubjectsBtn = document.getElementById('back-to-subjects');
+    const backToChaptersBtn = document.getElementById('back-to-chapters');
+    const sortBtn = document.getElementById('sort-questions');
+
+    let currentSubject = '';
+    let currentChapter = '';
+    let isSorted = false;
+
+    // ===================================================================================
+    //  NAVIGATION LOGIC
+    // ===================================================================================
+    function showScreen(screenName) {
+        for (let key in screens) {
+            screens[key].classList.remove('active');
+        }
+        screens[screenName].classList.add('active');
+    }
+
+    // ===================================================================================
+    //  RENDERING LOGIC
+    // ===================================================================================
+
+    function renderSubjects() {
+        const subjects = [...new Set(qBank.map(item => item.subject))];
+        subjectsListContainer.innerHTML = '';
+        subjects.forEach(subject => {
+            const subjectElement = document.createElement('div');
+            subjectElement.className = 'bg-white rounded-xl shadow-md p-4 flex flex-col hover:shadow-lg transition-shadow cursor-pointer';
+            subjectElement.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center">
+                        <div class="bg-blue-500 rounded-full p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 18.2A.9.9 0 0 1 5 17.3V11a7 7 0 0 1 14 0v6.3a.9.9 0 0 1-.8 1.1l-2.5.3a1 1 0 0 0-.7.7l-.6 2.5a1 1 0 0 1-1 .7h-1.8a1 1 0 0 1-1-.7l-.6-2.5a1 1 0 0 0-.7-.7Z"/><path d="M8 11V6a4 4 0 0 1 8 0v5"/><path d="M12 22v-2"/></svg>
+                        </div>
+                        <span class="ml-4 font-bold text-lg">${subject.toUpperCase()}</span>
+                    </div>
+                    <span class="font-semibold text-blue-800">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+            `;
+            subjectElement.addEventListener('click', () => {
+                currentSubject = subject;
+                renderChapters(subject);
+                showScreen('chapters');
+            });
+            subjectsListContainer.appendChild(subjectElement);
+        });
+    }
+
+    function renderChapters(subject) {
+        chaptersTitle.textContent = subject;
+        const chapters = [...new Set(qBank.filter(item => item.subject === subject).map(item => item.chapter))];
+        chaptersListContainer.innerHTML = '';
+        chapters.forEach(chapter => {
+            const chapterElement = document.createElement('div');
+            chapterElement.className = 'bg-white rounded-lg shadow p-4 hover:bg-gray-50 cursor-pointer';
+            chapterElement.textContent = chapter;
+            chapterElement.addEventListener('click', () => {
+                currentChapter = chapter;
+                renderQuestions(subject, chapter);
+                showScreen('questions');
+            });
+            chaptersListContainer.appendChild(chapterElement);
+        });
+    }
+
+    function renderQuestions(subject, chapter, sorted = false) {
+        questionsTitle.textContent = chapter;
+        let questions = qBank.filter(item => item.subject === subject && item.chapter === chapter);
+        
+        if(sorted) {
+            questions.sort((a, b) => b.reps - a.reps);
+        } else {
+             questions.sort((a, b) => a.question.localeCompare(b.question));
+        }
+
+        questionsListContainer.innerHTML = '';
+        questions.forEach(q => {
+            const questionElement = document.createElement('div');
+            questionElement.className = 'bg-white rounded-lg shadow p-3';
+            questionElement.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <p class="flex-grow pr-4">${q.question}</p>
+                    <span class="flex-shrink-0 bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${q.reps}x</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">${q.type}</p>
+            `;
+            questionsListContainer.appendChild(questionElement);
+        });
+    }
+
+    // ===================================================================================
+    //  EVENT LISTENERS
+    // ===================================================================================
+    backToSubjectsBtn.addEventListener('click', () => showScreen('subjects'));
+    backToChaptersBtn.addEventListener('click', () => showScreen('chapters'));
+    
+    sortBtn.addEventListener('click', () => {
+        isSorted = !isSorted;
+        renderQuestions(currentSubject, currentChapter, isSorted);
+        sortBtn.classList.toggle('bg-green-500', isSorted);
+        sortBtn.classList.toggle('bg-blue-500', !isSorted);
+    });
+
+    // ===================================================================================
+    //  INITIALIZATION
+    // ===================================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        renderSubjects();
+        showScreen('subjects');
+    });
+
+</script>
+
+</body>
+</html>
